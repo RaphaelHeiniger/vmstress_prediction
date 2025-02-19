@@ -15,3 +15,21 @@ def process_kwd_to_mesh(keyword_file):
     mesh_topology = elements.cards[0].table[['n1', 'n2', 'n3']].to_csv(header=None, index=False)
 
     return deck, mesh_geometry, mesh_topology
+
+def plot_mesh(mesh_geometry, mesh_topology):
+    nodes_df = pd.read_csv(mesh_geometry, header=None, names=['x', 'y'])  # Adjust the path accordingly
+    nodes = nodes_df[['x', 'y']].values  # Extract coordinates as a numpy array
+    
+    # Load the element connectivity (node indices for each element)
+    elements_df = pd.read_csv(mesh_topology, header=None, names=['n1', 'n2', 'n3'])  # Adjust the path accordingly
+    elements = elements_df[['n1', 'n2', 'n3']].values - 1  # Convert to zero-based indexing
+    
+    # Create a PyVista mesh from the nodes and elements
+    mesh = pv.PolyData(nodes)  # Initialize mesh with node coordinates
+    mesh.faces = elements.flatten('F')  # Flatten elements for PyVista faces format
+    
+    # Now plot the mesh off-screen (use off-screen rendering mode for cloud environments)
+    pv.set_plot_theme("dark")  # Optional: Set a theme for better visualization
+    plotter = pv.Plotter(off_screen=True)  # Use off-screen rendering mode
+    plotter.add_mesh(mesh, color="cyan", show_edges=True)  # Add mesh to plotter
+    plotter.show() 
