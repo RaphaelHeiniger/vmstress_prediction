@@ -8,21 +8,20 @@ def process_kwd_to_mesh(keyword_file):
     deck.loads(keyword_file)
 
     nodes = deck.get(type="NODE", filter=lambda kwd: kwd.subkeyword == "NODE")[0]
-    mesh_geometry = nodes.cards[0].table[['x', 'y']].to_csv(header=None, index=False)
+    
+    mesh_geometry = nodes.cards[0].table[['x', 'y']]
 
     elements = deck.get(type="ELEMENT", filter=lambda kwd: kwd.subkeyword == "SHELL")[0]
 
-    mesh_topology = elements.cards[0].table[['n1', 'n2', 'n3']].to_csv(header=None, index=False)
+    mesh_topology = elements.cards[0].table[['n1', 'n2', 'n3']]
 
     return deck, mesh_geometry, mesh_topology
 
 def plot_mesh(mesh_geometry, mesh_topology):
-    nodes_df = pd.read_csv(mesh_geometry, header=None, names=['x', 'y'])  # Adjust the path accordingly
-    nodes = nodes_df[['x', 'y']].values  # Extract coordinates as a numpy array
+    nodes = mesh_geometry[['x', 'y']].values  # Extract coordinates as a numpy array
     
     # Load the element connectivity (node indices for each element)
-    elements_df = pd.read_csv(mesh_topology, header=None, names=['n1', 'n2', 'n3'])  # Adjust the path accordingly
-    elements = elements_df[['n1', 'n2', 'n3']].values - 1  # Convert to zero-based indexing
+    elements = mesh_topology[['n1', 'n2', 'n3']].values - 1  # Convert to zero-based indexing
     
     # Create a PyVista mesh from the nodes and elements
     mesh = pv.PolyData(nodes)  # Initialize mesh with node coordinates
