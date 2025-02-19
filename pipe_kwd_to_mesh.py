@@ -37,14 +37,11 @@ def plot_mesh(mesh_geometry, mesh_topology):
     mesh = pv.PolyData(nodes)  # Create the mesh with node coordinates
     mesh.faces = faces  # Assign faces (connectivity)
 
-    # Visualize the mesh
-    plotter = pv.Plotter(off_screen=True)
-    plotter.add_mesh(mesh, color="cyan", show_edges=True)
-    #plotter.show()
-    #plotter.add_mesh(mesh, color="cyan", show_edges=True)
+    plotter = pv.Plotter(window_size=[400,400])
 
-    # Save the plot as a screenshot (static image)
-    image_path = "/tmp/mesh_screenshot.png"  # Temporary file path to save image
-    plotter.screenshot(image_path)
+    plotter.add_mesh(mesh, scalars='myscalar', cmap='bwr')
+
+    plotter.view_isometric()
+    plotter.background_color = 'white'
     
-    return image_path
+    return plotter
