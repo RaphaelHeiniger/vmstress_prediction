@@ -49,7 +49,7 @@ def preprocessing_section():
     st.title("Preprocessing Section")
     if "user_data" in st.session_state:
         deck = st.session_state["deck"]
-        deck.plot(show_edges=True)
+        deck.plot(show_edges=True, off_screen=True)
         preprocessed_data = st.session_state["user_data"].strip().lower()
         st.session_state["preprocessed_data"] = preprocessed_data
         st.write("Preprocessed Data:", preprocessed_data)
