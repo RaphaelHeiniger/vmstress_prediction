@@ -53,7 +53,7 @@ def preprocessing_section():
         mesh_geometry = st.session_state["mesh_geometry"]
         mesh_topology = st.session_state["mesh_topology"]
         plot_mesh(mesh_geometry, mesh_topology)
-        preprocessed_data = st.session_state["user_data"].strip().lower()
+        preprocessed_data = [mesh_geometry, mesh_topology]
         st.session_state["preprocessed_data"] = preprocessed_data
         st.write("Preprocessed Data:", preprocessed_data)
         
