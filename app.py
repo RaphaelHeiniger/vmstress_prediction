@@ -33,13 +33,18 @@ def input_section():
         st.session_state["user_data"] = uploaded_file.read().decode("utf-8")
         if st.button("Confirm Upload"):
             st.session_state["current_page"] = "Preprocessing"
-            #function that reads lsdyna deck and creates deck to plot
+            keyword_file = st.session_state["user_data"]
+            deck, mesh_geometry, elements = process_kwd_to_mesh(keyword_file)
+            st.session_state["deck"] = deck
+            st.session_state["mesh_geometry"] = mesh_geometry
+            st.session_state["elements"] = elements
             st.rerun()
 
 def preprocessing_section():
     st.title("Preprocessing Section")
     if "user_data" in st.session_state:
-        st.write("Raw Data:", st.session_state["user_data"])
+        deck = st.session_state["deck"]
+        deck.plot(show_edges=True)
         preprocessed_data = st.session_state["user_data"].strip().lower()
         st.session_state["preprocessed_data"] = preprocessed_data
         st.write("Preprocessed Data:", preprocessed_data)
