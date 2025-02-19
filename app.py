@@ -67,6 +67,7 @@ def prediction_section():
         
         if st.button("Predict"):
             st.session_state["prediction_status"] = "Preparing data for model..."
+            st.session_state["prediction_step"] = 0
             st.session_state["current_page"] = "Results"
             st.rerun()
     else:
@@ -74,21 +75,26 @@ def prediction_section():
 
 def results_section():
     st.title("Results Section")
-    if "prediction_status" in st.session_state:
-        st.write(st.session_state["prediction_status"])
-        time.sleep(2)
-        st.session_state["prediction_status"] = "Running prediction..."
-        st.rerun()
-    elif "prediction_result" not in st.session_state:
-        time.sleep(2)
-        st.session_state["prediction_result"] = np.random.rand(100, 100)
-        st.session_state["prediction_status"] = "Prediction Finished!"
-        st.rerun()
+    if "prediction_step" in st.session_state:
+        if st.session_state["prediction_step"] == 0:
+            st.write("Preparing data for model...")
+            time.sleep(2)
+            st.session_state["prediction_step"] = 1
+            st.rerun()
+        elif st.session_state["prediction_step"] == 1:
+            st.write("Running prediction...")
+            time.sleep(2)
+            st.session_state["prediction_result"] = np.random.rand(100, 100)
+            st.session_state["prediction_status"] = "Prediction Finished!"
+            st.session_state["prediction_step"] = 2
+            st.rerun()
+        elif st.session_state["prediction_step"] == 2:
+            st.success(st.session_state["prediction_status"])
+            fig, ax = plt.subplots()
+            ax.imshow(st.session_state["prediction_result"], cmap="viridis")
+            st.pyplot(fig)
     else:
-        st.success(st.session_state["prediction_status"])
-        fig, ax = plt.subplots()
-        ax.imshow(st.session_state["prediction_result"], cmap="viridis")
-        st.pyplot(fig)
+        st.warning("No prediction initiated yet.")
 
 if __name__ == "__main__":
     main()
