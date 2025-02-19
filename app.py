@@ -45,10 +45,10 @@ def preprocessing_section():
         
         # Display PyVista visualization
         #plot ls-dyna inputdeck
-        plotter = pv.Plotter()
-        mesh = pv.Sphere()
-        plotter.add_mesh(mesh)
-        stpv.pyplot(plotter.show())
+        #plotter = pv.Plotter()
+        #mesh = pv.Sphere()
+        #plotter.add_mesh(mesh)
+        #stpv.pyplot(plotter.show())
         
         if st.button("Preprocess geometry"):
             st.session_state["current_page"] = "Prediction"
