@@ -79,7 +79,6 @@ def results_section():
         time.sleep(2)
         st.session_state["prediction_result"] = np.random.rand(100, 100)
         st.session_state["prediction_status"] = "Prediction Finished!"
-        st.experimental_rerun()
     else:
         st.success(st.session_state["prediction_status"])
         fig, ax = plt.subplots()
