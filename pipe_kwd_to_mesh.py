@@ -37,10 +37,12 @@ def plot_mesh(mesh_geometry, mesh_topology):
     mesh = pv.PolyData(nodes)  # Create the mesh with node coordinates
     mesh.faces = faces  # Assign faces (connectivity)
 
-    plotter = pv.Plotter(window_size=[400,400])
+    # **FIX: Add a scalar field**
+    mesh["myscalar"] = np.random.rand(mesh.n_points)  # Assign random values as an example
 
+    # Plot
+    plotter = pv.Plotter(window_size=[400, 400])
     plotter.add_mesh(mesh, scalars='myscalar', cmap='bwr')
-
     plotter.view_isometric()
     plotter.background_color = 'white'
     
