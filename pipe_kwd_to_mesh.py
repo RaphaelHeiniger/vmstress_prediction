@@ -19,17 +19,15 @@ def process_kwd_to_mesh(keyword_file):
     return deck, mesh_geometry, mesh_topology
 
 def plot_mesh(mesh_geometry, mesh_topology):
-    nodes = mesh_geometry[['x', 'y']].values  # Extract coordinates as a numpy array
+    nodes_3d = mesh_geometry
+    nodes_3d['z'] = 0
+    nodes = nodes_3d[['x', 'y', 'z']].values
     
-    # Load the element connectivity (node indices for each element)
-    elements = mesh_topology[['n1', 'n2', 'n3']].values - 1  # Convert to zero-based indexing
+    elements = mesh_topology[['n1', 'n2', 'n3']].values - 1
+    mesh = pv.PolyData(nodes)
+    mesh.faces = elements.flatten('F')
     
-    # Create a PyVista mesh from the nodes and elements
-    mesh = pv.PolyData(nodes)  # Initialize mesh with node coordinates
-    mesh.faces = elements.flatten('F')  # Flatten elements for PyVista faces format
-    
-    # Now plot the mesh off-screen (use off-screen rendering mode for cloud environments)
-    pv.set_plot_theme("dark")  # Optional: Set a theme for better visualization
-    plotter = pv.Plotter(off_screen=True)  # Use off-screen rendering mode
-    plotter.add_mesh(mesh, color="cyan", show_edges=True)  # Add mesh to plotter
+    pv.set_plot_theme("dark")
+    plotter = pv.Plotter(off_screen=True)
+    plotter.add_mesh(mesh, color="cyan", show_edges=True)
     plotter.show() 
