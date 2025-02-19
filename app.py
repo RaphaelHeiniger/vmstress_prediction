@@ -50,7 +50,7 @@ def preprocessing_section():
     if "user_data" in st.session_state:
         #deck = st.session_state["deck"]
         #deck.plot(show_edges=True, off_screen=True)
-        mesh_geometry = st.session_state["mesh_geometry"] = 
+        mesh_geometry = st.session_state["mesh_geometry"]
         mesh_topology = st.session_state["mesh_topology"]
         plot_mesh(mesh_geometry, mesh_topology)
         preprocessed_data = st.session_state["user_data"].strip().lower()
