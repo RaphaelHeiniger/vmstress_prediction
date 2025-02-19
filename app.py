@@ -47,7 +47,7 @@ def input_section():
 
 def preprocessing_section():
     st.title("Preprocessing Section")
-    if "user_data" in st.session_state:
+    if "mesh_geometry" in st.session_state and "mesh_topology" in st.session_state:
         #deck = st.session_state["deck"]
         #deck.plot(show_edges=True, off_screen=True)
         mesh_geometry = st.session_state["mesh_geometry"]
