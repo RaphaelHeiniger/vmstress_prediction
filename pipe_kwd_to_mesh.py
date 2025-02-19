@@ -13,5 +13,5 @@ def process_kwd_to_mesh(keyword_file):
     elements = deck.get(type="ELEMENT", filter=lambda kwd: kwd.subkeyword == "SHELL")[0]
 
     mesh_topology = elements.cards[0].table[['n1', 'n2', 'n3']].to_csv(header=None, index=False)
-    deck.plot(show_edges=True)
-return deck, mesh_geometry, elements
+
+    return deck, mesh_geometry, mesh_topology
