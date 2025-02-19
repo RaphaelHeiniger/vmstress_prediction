@@ -44,7 +44,7 @@ def plot_mesh(mesh_geometry, mesh_topology):
 
     # Plot
     pv.start_xvfb()
-    plotter = pv.Plotter(window_size=[400, 400])
+    plotter = pv.Plotter(off_screen=True, window_size=[400, 400])
     plotter.add_mesh(mesh, scalars='myscalar', cmap='bwr')
     plotter.view_isometric()
     plotter.background_color = 'white'
