@@ -48,6 +48,4 @@ def plot_mesh(mesh_geometry, mesh_topology):
     image_path = "/tmp/mesh_screenshot.png"  # Temporary file path to save image
     plotter.screenshot(image_path)
     
-    # Display the static image in Streamlit
-    import streamlit as st
-    st.image(image_path) 
+    return image_path
