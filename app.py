@@ -7,7 +7,7 @@ from ansys.dyna.core.keywords import keywords
 from pathlib import Path
 import pandas as pd
 
-from pipe_kwd_to_mesh import process_kwd_to_mesh
+from pipe_kwd_to_mesh import process_kwd_to_mesh, plot_mesh
 
 def main():
     st.set_page_config(page_title="ML Pipeline App", layout="wide")
