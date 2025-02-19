@@ -1,6 +1,6 @@
 import streamlit as st
-import time
 import pyvista as pv
+import time
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -12,9 +12,10 @@ def main():
     if "current_page" not in st.session_state:
         st.session_state["current_page"] = "Input"
     
-    option = st.sidebar.radio("Go to", ("Input", "Preprocessing", "Prediction"),
+    option = st.sidebar.radio("Go to", ("Input", "Preprocessing", "Prediction", "Results"),
                               index=(0 if st.session_state["current_page"] == "Input" else
-                                     1 if st.session_state["current_page"] == "Preprocessing" else 2))
+                                     1 if st.session_state["current_page"] == "Preprocessing" else
+                                     2 if st.session_state["current_page"] == "Prediction" else 3))
     
     if option == "Input":
         input_section()
@@ -22,6 +23,8 @@ def main():
         preprocessing_section()
     elif option == "Prediction":
         prediction_section()
+    elif option == "Results":
+        results_section()
 
 def input_section():
     st.title("Input Section")
@@ -48,7 +51,6 @@ def preprocessing_section():
         
         if st.button("Run Prediction"):
             st.session_state["current_page"] = "Prediction"
-            st.session_state["prediction_status"] = "Preparing data for model..."
             st.experimental_rerun()
     else:
         st.warning("Please upload a file in the Input section first.")
@@ -56,25 +58,34 @@ def preprocessing_section():
 def prediction_section():
     st.title("Prediction Section")
     if "preprocessed_data" in st.session_state:
-        st.write("Using preprocessed data for prediction:")
+        # Model selection
+        model_choice = st.radio("Select a prediction model:", ("Model A", "Model B"))
+        st.session_state["selected_model"] = model_choice
         
-        if "prediction_status" in st.session_state:
-            st.write(st.session_state["prediction_status"])
-            time.sleep(2)
-            st.session_state["prediction_status"] = "Running prediction..."
+        if st.button("Predict"):
+            st.session_state["prediction_status"] = "Preparing data for model..."
             st.experimental_rerun()
-        elif "prediction_result" not in st.session_state:
-            time.sleep(2)
-            st.session_state["prediction_result"] = np.random.rand(100, 100)
-            st.session_state["prediction_status"] = "Prediction Finished!"
-            st.experimental_rerun()
-        else:
-            st.success(st.session_state["prediction_status"])
-            fig, ax = plt.subplots()
-            ax.imshow(st.session_state["prediction_result"], cmap="viridis")
-            st.pyplot(fig)
     else:
         st.warning("Please preprocess the data first.")
 
+def results_section():
+    st.title("Results Section")
+    if "prediction_status" in st.session_state:
+        st.write(st.session_state["prediction_status"])
+        time.sleep(2)
+        st.session_state["prediction_status"] = "Running prediction..."
+        st.experimental_rerun()
+    elif "prediction_result" not in st.session_state:
+        time.sleep(2)
+        st.session_state["prediction_result"] = np.random.rand(100, 100)
+        st.session_state["prediction_status"] = "Prediction Finished!"
+        st.experimental_rerun()
+    else:
+        st.success(st.session_state["prediction_status"])
+        fig, ax = plt.subplots()
+        ax.imshow(st.session_state["prediction_result"], cmap="viridis")
+        st.pyplot(fig)
+
 if __name__ == "__main__":
     main()
+
