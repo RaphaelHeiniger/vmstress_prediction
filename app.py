@@ -34,6 +34,7 @@ def input_section():
         if st.button("Confirm Upload"):
             st.session_state["current_page"] = "Preprocessing"
             #function that reads lsdyna deck and creates deck to plot
+            st.rerun()
 
 def preprocessing_section():
     st.title("Preprocessing Section")
@@ -52,6 +53,8 @@ def preprocessing_section():
         
         if st.button("Preprocess geometry"):
             st.session_state["current_page"] = "Prediction"
+            #create features from mesh
+            st.rerun()
     else:
         st.warning("Please upload a file in the Input section first.")
 
@@ -65,6 +68,7 @@ def prediction_section():
         if st.button("Predict"):
             st.session_state["prediction_status"] = "Preparing data for model..."
             st.session_state["current_page"] = "Results"
+            st.rerun()
     else:
         st.warning("Please preprocess the data first.")
 
@@ -74,10 +78,12 @@ def results_section():
         st.write(st.session_state["prediction_status"])
         time.sleep(2)
         st.session_state["prediction_status"] = "Running prediction..."
+        st.rerun()
     elif "prediction_result" not in st.session_state:
         time.sleep(2)
         st.session_state["prediction_result"] = np.random.rand(100, 100)
         st.session_state["prediction_status"] = "Prediction Finished!"
+        st.rerun()
     else:
         st.success(st.session_state["prediction_status"])
         fig, ax = plt.subplots()
