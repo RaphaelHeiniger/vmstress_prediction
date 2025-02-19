@@ -1,7 +1,6 @@
 import streamlit as st
-import pyvista as pv
-import streamlit_pyvista as stpv
 import time
+import pyvista as pv
 import matplotlib.pyplot as plt
 import numpy as np
 
