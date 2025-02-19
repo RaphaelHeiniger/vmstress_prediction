@@ -5,6 +5,8 @@ import pandas as pd
 import pyvista as pv
 import numpy as np
 
+pv.start_xvfb()
+
 def process_kwd_to_mesh(keyword_file):
     deck = Deck()
     deck.loads(keyword_file)
@@ -41,6 +43,7 @@ def plot_mesh(mesh_geometry, mesh_topology):
     mesh["myscalar"] = np.random.rand(mesh.n_points)  # Assign random values as an example
 
     # Plot
+    pv.start_xvfb()
     plotter = pv.Plotter(window_size=[400, 400])
     plotter.add_mesh(mesh, scalars='myscalar', cmap='bwr')
     plotter.view_isometric()
