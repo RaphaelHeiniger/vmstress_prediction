@@ -3,6 +3,7 @@ from ansys.dyna.core.keywords import keywords
 from pathlib import Path
 import pandas as pd
 import pyvista as pv
+import numpy as np
 
 def process_kwd_to_mesh(keyword_file):
     deck = Deck()
