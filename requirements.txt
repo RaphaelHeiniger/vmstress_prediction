@@ -1,0 +1,17 @@
+jupyterlab
+ipykernel
+numpy
+pandas
+matplotlib
+plotly
+kaleido
+seaborn
+h5py
+tensorflow
+tables
+scikit-learn
+ansys-dyna-core
+torch
+torchvision
+torchaudio
+torch-geometric
