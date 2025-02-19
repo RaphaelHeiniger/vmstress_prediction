@@ -5,7 +5,7 @@ import pandas as pd
 import pyvista as pv
 import numpy as np
 
-pv.start_xvfb()
+#pv.start_xvfb()
 
 def process_kwd_to_mesh(keyword_file):
     deck = Deck()
@@ -42,7 +42,7 @@ def plot_mesh(mesh_geometry, mesh_topology):
     print("Available scalars:", mesh.point_data.keys()) 
 
     # Plot
-    pv.start_xvfb()
+    #pv.start_xvfb()
     plotter = pv.Plotter(off_screen=True, window_size=[400, 400])
     plotter.add_mesh(mesh, scalars='myscalar', cmap='bwr')
     plotter.view_isometric()
