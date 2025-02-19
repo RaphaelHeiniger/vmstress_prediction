@@ -57,7 +57,8 @@ def preprocessing_section():
         #deck.plot(show_edges=True, off_screen=True)
         mesh_geometry = st.session_state["mesh_geometry"]
         mesh_topology = st.session_state["mesh_topology"]
-        plot_mesh(mesh_geometry, mesh_topology)
+        mesh_plot = plot_mesh(mesh_geometry, mesh_topology)
+        st.image(mesh_plot) 
         preprocessed_data = [mesh_geometry, mesh_topology]
         st.session_state["preprocessed_data"] = preprocessed_data
         st.write("Preprocessed Data:", preprocessed_data)
