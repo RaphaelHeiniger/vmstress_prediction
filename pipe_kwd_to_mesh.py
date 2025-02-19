@@ -42,3 +42,12 @@ def plot_mesh(mesh_geometry, mesh_topology):
     plotter = pv.Plotter(off_screen=True)
     plotter.add_mesh(mesh, color="cyan", show_edges=True)
     plotter.show()
+    #plotter.add_mesh(mesh, color="cyan", show_edges=True)
+
+    # Save the plot as a screenshot (static image)
+    image_path = "/tmp/mesh_screenshot.png"  # Temporary file path to save image
+    plotter.screenshot(image_path)
+    
+    # Display the static image in Streamlit
+    import streamlit as st
+    st.image(image_path) 
