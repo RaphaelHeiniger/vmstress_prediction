@@ -55,11 +55,11 @@ def preprocessing_section():
     st.title("Preprocessing Section")
     if "mesh_geometry" in st.session_state and "mesh_topology" in st.session_state:
         deck = st.session_state["deck"]
-        stpyvista(deck.plot(show_edges=True, off_screen=True), key="mesh_plot")
-        #mesh_geometry = st.session_state["mesh_geometry"]
+        #stpyvista(deck.plot(show_edges=True, off_screen=True), key="mesh_plot")
+        mesh_geometry = st.session_state["mesh_geometry"]
         mesh_topology = st.session_state["mesh_topology"]
         mesh_plotter = plot_mesh(mesh_geometry, mesh_topology)
-        #stpyvista(mesh_plotter, key="mesh_plot")
+        stpyvista(mesh_plotter, key="mesh_plot")
         preprocessed_data = [mesh_geometry, mesh_topology]
         st.session_state["preprocessed_data"] = preprocessed_data
         st.write("Preprocessed Data:", preprocessed_data)
