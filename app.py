@@ -39,17 +39,20 @@ def input_section():
         if st.button("Confirm Upload"):
             st.session_state["current_page"] = "Preprocessing"
             keyword_file = st.session_state["user_data"]
-            deck, mesh_geometry, elements = process_kwd_to_mesh(keyword_file)
+            deck, mesh_geometry, mesh_topology = process_kwd_to_mesh(keyword_file)
             st.session_state["deck"] = deck
             st.session_state["mesh_geometry"] = mesh_geometry
-            st.session_state["elements"] = elements
+            st.session_state["mesh_topology"] = mesh_topology
             st.rerun()
 
 def preprocessing_section():
     st.title("Preprocessing Section")
     if "user_data" in st.session_state:
-        deck = st.session_state["deck"]
-        deck.plot(show_edges=True, off_screen=True)
+        #deck = st.session_state["deck"]
+        #deck.plot(show_edges=True, off_screen=True)
+        mesh_geometry = st.session_state["mesh_geometry"] = 
+        mesh_topology = st.session_state["mesh_topology"]
+        plot_mesh(mesh_geometry, mesh_topology)
         preprocessed_data = st.session_state["user_data"].strip().lower()
         st.session_state["preprocessed_data"] = preprocessed_data
         st.write("Preprocessed Data:", preprocessed_data)
