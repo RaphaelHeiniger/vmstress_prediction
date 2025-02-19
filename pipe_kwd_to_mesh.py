@@ -39,8 +39,7 @@ def plot_mesh(mesh_geometry, mesh_topology):
     mesh = pv.PolyData(nodes)  # Create the mesh with node coordinates
     mesh.faces = faces  # Assign faces (connectivity)
 
-    # **FIX: Add a scalar field**
-    mesh["myscalar"] = np.random.rand(mesh.n_points)  # Assign random values as an example
+    print("Available scalars:", mesh.point_data.keys()) 
 
     # Plot
     pv.start_xvfb()
