@@ -38,10 +38,9 @@ def plot_mesh(mesh_geometry, mesh_topology):
     mesh.faces = faces  # Assign faces (connectivity)
 
     # Visualize the mesh
-    pv.set_plot_theme("dark")
     plotter = pv.Plotter(off_screen=True)
     plotter.add_mesh(mesh, color="cyan", show_edges=True)
-    plotter.show()
+    #plotter.show()
     #plotter.add_mesh(mesh, color="cyan", show_edges=True)
 
     # Save the plot as a screenshot (static image)
