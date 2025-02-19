@@ -64,7 +64,7 @@ def prediction_section():
         
         if st.button("Predict"):
             st.session_state["prediction_status"] = "Preparing data for model..."
-            #run model and return prediction
+            st.session_state["current_page"] = "Results"
     else:
         st.warning("Please preprocess the data first.")
 
@@ -74,7 +74,6 @@ def results_section():
         st.write(st.session_state["prediction_status"])
         time.sleep(2)
         st.session_state["prediction_status"] = "Running prediction..."
-        st.experimental_rerun()
     elif "prediction_result" not in st.session_state:
         time.sleep(2)
         st.session_state["prediction_result"] = np.random.rand(100, 100)
