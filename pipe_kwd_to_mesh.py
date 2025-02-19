@@ -19,15 +19,25 @@ def process_kwd_to_mesh(keyword_file):
     return deck, mesh_geometry, mesh_topology
 
 def plot_mesh(mesh_geometry, mesh_topology):
-    nodes_3d = mesh_geometry
-    nodes_3d['z'] = 0
-    nodes = nodes_3d[['x', 'y', 'z']].values
+    nodes_3d = mesh_geometry.copy()
+    nodes_3d['z'] = 0  # Flat plane mesh
+    nodes = nodes_3d[['x', 'y', 'z']].values  # Get coordinates as an array
     
-    elements = mesh_topology[['n1', 'n2', 'n3']].values - 1
-    mesh = pv.PolyData(nodes)
-    mesh.faces = elements.flatten('F')
+    # The connectivity (elements) with 1-based indexing
+    elements = mesh_topology[['n1', 'n2', 'n3']].values - 1  # Convert to 0-based indexing for PyVista
     
+    # Prepare the element connectivity for PyVista: [3, n1, n2, n3, 3, n4, n5, n6, ...]
+    faces = []
+    for row in elements:
+        faces.append([3, row[0], row[1], row[2]])  # Each row starts with the number of vertices for that face (3 for triangles)
+    faces = np.array(faces).flatten()  # Flatten the list to match PyVista's format
+
+    # Create a PyVista mesh
+    mesh = pv.PolyData(nodes)  # Create the mesh with node coordinates
+    mesh.faces = faces  # Assign faces (connectivity)
+
+    # Visualize the mesh
     pv.set_plot_theme("dark")
     plotter = pv.Plotter(off_screen=True)
     plotter.add_mesh(mesh, color="cyan", show_edges=True)
-    plotter.show() 
+    plotter.show()
