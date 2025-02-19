@@ -33,7 +33,7 @@ def input_section():
         st.session_state["user_data"] = uploaded_file.read().decode("utf-8")
         if st.button("Confirm Upload"):
             st.session_state["current_page"] = "Preprocessing"
-            st.experimental_rerun()
+            #function that reads lsdyna deck and creates deck to plot
 
 def preprocessing_section():
     st.title("Preprocessing Section")
@@ -44,14 +44,14 @@ def preprocessing_section():
         st.write("Preprocessed Data:", preprocessed_data)
         
         # Display PyVista visualization
+        #plot ls-dyna inputdeck
         plotter = pv.Plotter()
         mesh = pv.Sphere()
         plotter.add_mesh(mesh)
         stpv.pyplot(plotter.show())
         
-        if st.button("Run Prediction"):
+        if st.button("Preprocess geometry"):
             st.session_state["current_page"] = "Prediction"
-            st.experimental_rerun()
     else:
         st.warning("Please upload a file in the Input section first.")
 
@@ -64,7 +64,7 @@ def prediction_section():
         
         if st.button("Predict"):
             st.session_state["prediction_status"] = "Preparing data for model..."
-            st.experimental_rerun()
+            #run model and return prediction
     else:
         st.warning("Please preprocess the data first.")
 
