@@ -60,25 +60,18 @@ def main():
         
     google_drive_link = "https://drive.google.com/file/d/1GyEkBkEMU3CfgnZEl-fOwkU_WLg1XoM9/view?usp=sharing"
     
-    st.sidebar.markdown(
+    st.markdown(
         """
         <style>
-        .css-1d391kg { /* This class targets the sidebar container */
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            justify-content: flex-start;
-        }
-        .sidebar-content {
-            flex-grow: 1; /* Ensures the sidebar content above the clickable text takes up remaining space */
-        }
         .clickable-text {
-            color: #555555; /* Dark gray text */
+            position: fixed;  /* Fixed position relative to the window */
+            bottom: 20px;     /* Position from the bottom */
+            right: 20px;      /* Position from the right */
+            color: #555555;   /* Dark gray text */
             font-size: 16px;
             font-weight: bold;
-            text-align: center;
             cursor: pointer;
-            margin-top: auto; /* Pushes the clickable text to the very bottom */
+            z-index: 1000;    /* Ensures it stays on top of other elements */
         }
         </style>
         """,
@@ -86,7 +79,7 @@ def main():
     )
 
     # Add the clickable text with a link
-    st.sidebar.markdown(
+    st.markdown(
         f'<a href="{google_drive_link}" class="clickable-text" target="_blank">Download Test Mesh</a>',
         unsafe_allow_html=True
     )
