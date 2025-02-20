@@ -39,7 +39,7 @@ def plot_mesh(mesh_geometry, mesh_topology):
     mesh = pv.PolyData(nodes)  # Create the mesh with node coordinates
     mesh.faces = faces  # Assign faces (connectivity)
 
-    plotter = pv.Plotter(off_screen=True)
+    plotter = pv.Plotter(off_screen=True, window_size=[600, 600])
     plotter.add_mesh(mesh, show_edges=True)
     plotter.view_isometric()
     plotter.background_color = 'white'
