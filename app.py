@@ -67,17 +67,20 @@ def main():
             display: flex;
             flex-direction: column;
             height: 100%;
-            justify-content: flex-end;
+            justify-content: flex-start;
+        }
+        .sidebar-content {
+            flex-grow: 1; /* Ensures the sidebar content above the button takes up remaining space */
         }
         .sidebar-button {
-            background-color: #d3d3d3; /* gray */
+            background-color: #555555; /* Dark gray */
             color: white;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             width: 100%;
-            margin-top: 20px; /* Optional spacing above the button */
+            margin-top: auto; /* Pushes the button to the very bottom */
         }
         </style>
         """,
