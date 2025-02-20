@@ -70,26 +70,24 @@ def main():
             justify-content: flex-start;
         }
         .sidebar-content {
-            flex-grow: 1; /* Ensures the sidebar content above the button takes up remaining space */
+            flex-grow: 1; /* Ensures the sidebar content above the clickable text takes up remaining space */
         }
-        .sidebar-button {
-            background-color: #555555; /* Dark gray */
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
+        .clickable-text {
+            color: #555555; /* Dark gray text */
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
             cursor: pointer;
-            width: 100%;
-            margin-top: auto; /* Pushes the button to the very bottom */
+            margin-top: auto; /* Pushes the clickable text to the very bottom */
         }
         </style>
         """,
         unsafe_allow_html=True
     )
 
-    # Custom button with a link to the Google Drive file
+    # Add the clickable text with a link
     st.sidebar.markdown(
-        f'<a href="{google_drive_link}" target="_blank"><button class="sidebar-button">Download Test Mesh</button></a>',
+        f'<a href="{google_drive_link}" class="clickable-text" target="_blank">Download Test Mesh</a>',
         unsafe_allow_html=True
     )
 def input_section():
