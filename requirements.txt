@@ -2,9 +2,9 @@ ansys-dyna-core==0.6.1
 matplotlib
 numpy
 pandas
-#torch==2.6.0
-#torch-geometric
-#torch-scatter
-#torch-sparse
+torch==2.6.0
+torch-geometric
+torch-scatter
+torch-sparse
 streamlit
 stpyvista
