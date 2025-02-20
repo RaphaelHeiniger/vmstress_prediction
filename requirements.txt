@@ -1,3 +1,7 @@
+pip --upgrade
+setuptools --upgrade
+wheel --upgrade
+
 ansys-dyna-core==0.6.1
 matplotlib
 numpy
