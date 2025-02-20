@@ -61,7 +61,26 @@ def main():
     google_drive_link = "https://drive.google.com/file/d/1GyEkBkEMU3CfgnZEl-fOwkU_WLg1XoM9/view?usp=sharing"
     
     st.sidebar.markdown(
-        f'<a href="{google_drive_link}" target="_blank"><button style="background-color:#4CAF50;color:white;padding:10px 20px;border:none;border-radius:5px;cursor:pointer;width:100%;">Download Test Mesh</button></a>',
+        """
+        <style>
+        .sidebar .sidebar-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            justify-content: space-between;
+        }
+        .sidebar-button {
+            background-color: #d3d3d3; /* gray */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        </style>
+        <a href="{}" target="_blank"><button class="sidebar-button">Download Test Mesh</button></a>
+        """.format(google_drive_link),
         unsafe_allow_html=True
     )
 def input_section():
