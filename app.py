@@ -59,37 +59,15 @@ def main():
         results_section()
         
     google_drive_link = "https://drive.google.com/file/d/1GyEkBkEMU3CfgnZEl-fOwkU_WLg1XoM9/view?usp=sharing"
-    
-    st.markdown(
-        """
-        <style>
-        /* Style for the sidebar */
-        .css-1d391kg {
-            position: relative; /* Make sidebar a reference point for absolute positioning */
-            height: 100vh;      /* Ensure sidebar takes up the full height of the window */
-        }
-
-        /* Style for the clickable text */
-        .clickable-text {
-            position: absolute;
-            bottom: 20px;      /* Position 20px from the bottom of the sidebar */
-            left: 20px;        /* Position 20px from the left of the sidebar */
-            color: #555555;    /* Dark gray text */
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 1000;     /* Ensures it stays on top */
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-
-    # Add the clickable text with a link at the bottom left of the sidebar
-    st.sidebar.markdown(
-        f'<a href="{google_drive_link}" class="clickable-text" target="_blank">Download Test Mesh</a>',
-        unsafe_allow_html=True
-    )
+    placeholder = st.sidebar.empty()
+    # Fill the placeholder with the clickable text (stays at the bottom)
+    with placeholder.container():
+        st.markdown(
+            f'<p style="color: #555555; font-size: 16px; font-weight: bold; text-align: left;">'
+            f'<a href="{google_drive_link}" target="_blank" style="color: inherit; text-decoration: none;">'
+            f'Download Test Mesh</a></p>',
+            unsafe_allow_html=True
+        )
 def input_section():
     st.title("Input")
     uploaded_file = st.file_uploader("Select the LSDYNA input file:", type=["k", "key", "dyn"])
