@@ -8,5 +8,5 @@ torch --index-url https://download.pytorch.org/whl/cu126
 torchvision --index-url https://download.pytorch.org/whl/cu126
 torchaudio --index-url https://download.pytorch.org/whl/cu126
 torch-geometric
-torch-scatter
-torch-sparse
+torch-scatter --index-url https://data.pyg.org/whl/torch-2.6.0+cu126.html
+torch-sparse --index-url https://data.pyg.org/whl/torch-2.6.0+cu126.html
