@@ -88,15 +88,20 @@ def plot_b_l(mesh_geometry, mesh_topology):
     plotter.add_mesh(mesh, show_edges=True)
     
     # Add arrows to the filtered points with y > 499.999
-    plotter.add_arrows(filtered_points_y_greater, directions, color="red", mag=1.3)
+    plotter.add_arrows(filtered_points_y_greater, directions, color="red", mag=1.3, label='Load')
     
     # Add the points with y < 0.001, make them bigger and blue
-    plotter.add_points(filtered_points_y_small, color="blue", point_size=15)
+    plotter.add_points(filtered_points_y_small, color="blue", point_size=15, label='Boundary')
     
-    plotter.add_legend(
-        labels={"Load": "red", "Boundary": "blue"}
+    plotter.add_axes(
+        origin=(0, 0, 0),  # Position the axes at the origin (0, 0, 0)
+        color="black",  # Color the axes themselves black
+        xlabel="X", ylabel="Y", zlabel="Z",  # Axis labels
+        axes_kwargs={"x": "red", "y": "green", "z": "blue"},  # Color axes: X in red, Y in green, Z in blue
+        line_width=3  # Optional: increase the line width for visibility
     )
-    # Set the view and background
+    pl.add_legend(legend)
+
     plotter.view_isometric()
     plotter.background_color = 'white'
     
