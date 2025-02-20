@@ -2,7 +2,7 @@ from typing import Optional, Tuple
 
 import torch
 
-from .utils import broadcast
+from utils import broadcast
 
 
 def scatter_sum(src: torch.Tensor, index: torch.Tensor, dim: int = -1,
