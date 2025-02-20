@@ -27,7 +27,6 @@ def plot_mesh(mesh_geometry, mesh_topology):
     nodes_3d['z'] = 0  # Flat plane mesh
     nodes = nodes_3d[['x', 'y', 'z']].values  # Get coordinates as an array
     mesh_topology_copy = mesh_topology.copy()
-    
     # The connectivity (elements) with 1-based indexing
     elements = mesh_topology_copy[['n1', 'n2', 'n3']].values - 1  # Convert to 0-based indexing for PyVista
     
@@ -41,27 +40,9 @@ def plot_mesh(mesh_geometry, mesh_topology):
     mesh = pv.PolyData(nodes)  # Create the mesh with node coordinates
     mesh.faces = faces  # Assign faces (connectivity)
     
-    # Create an array to store the color values for each node (default: 0 - no color)
-    colors = np.zeros(mesh.n_points)
-    
-    # Condition for red color: y < 0.001
-    red_condition = nodes_3d['y'] < 0.001
-    colors[red_condition] = 1  # Set color value 1 for red nodes
 
-    # Condition for blue color: y > 499.999
-    blue_condition = nodes_3d['y'] > 499.999
-    colors[blue_condition] = 2  # Set color value 2 for blue nodes
-
-    # Ensure that the color array is properly assigned to the mesh
-    mesh.point_arrays["Node Colors"] = colors
-
-    # Check if the point_arrays are properly added
-    if "Node Colors" not in mesh.point_arrays:
-        print("Error: Node Colors not added to the mesh.")
-
-    # Set up the plotter and show the mesh
     plotter = pv.Plotter(off_screen=True, window_size=[600, 600])
-    plotter.add_mesh(mesh, show_edges=True, scalars="Node Colors", cmap="coolwarm", point_size=10)
+    plotter.add_mesh(mesh, show_edges=True)
     plotter.view_isometric()
     plotter.background_color = 'white'
     
