@@ -59,7 +59,7 @@ def preprocessing_section():
         mesh_geometry = st.session_state["mesh_geometry"]
         mesh_topology = st.session_state["mesh_topology"]
         mesh_plotter = plot_mesh(mesh_geometry, mesh_topology)
-        stpyvista(mesh_plotter.ren_win, key="mesh_plot")
+        stpyvista(mesh_plotter, key="mesh_plot")
         preprocessed_data = [mesh_geometry, mesh_topology]
         st.session_state["preprocessed_data"] = preprocessed_data
         st.write("Preprocessed Data:", preprocessed_data)
