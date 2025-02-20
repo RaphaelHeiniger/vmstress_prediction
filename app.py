@@ -73,7 +73,7 @@ def input_section():
             st.session_state["mesh_geometry"] = mesh_geometry
             st.session_state["mesh_topology"] = mesh_topology
             st.rerun()
-    st.markdown('<a href="https://drive.google.com/uc?id=your_file_id&export=download" target="_blank" style="color: #555555; text-decoration: none; font-weight: bold;">Download Test Mesh</a>',
+    st.markdown('<a href="https://drive.google.com/uc?id=your_file_id&export=download" target="_blank" style="color: #555555; text-decoration: none;">Download test *.k file</a>',
     unsafe_allow_html=True
     )
 def preprocessing_section():
