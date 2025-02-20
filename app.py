@@ -35,18 +35,6 @@ else:
         start_xvfb()
         st.session_state.IS_XVFB_RUNNING = True 
     ##################################################################
-def show_legend():
-    # Using Markdown to display text with colors
-    st.markdown(
-        """
-        **Legend:**
-        
-        - **Loads**: Represented in <span style="color:red">red</span>.
-        - **Boundaries**: Represented in <span style="color:blue">blue</span>.
-        """,
-        unsafe_allow_html=True
-    )
-
 
 def main():
     st.set_page_config(page_title="Stress prediction", layout="wide")
@@ -102,7 +90,9 @@ def preprocessing_section():
         print(mesh_geometry.shape)
         preprocessed_data = [mesh_geometry, mesh_topology]
         st.session_state["preprocessed_data"] = preprocessed_data
-        show_legend()
+        st.markdown("**Legend:**")
+        st.markdown("  <span style='color:red'>**Loads**</span>", unsafe_allow_html=True)
+        st.markdown("  <span style='color:blue'>**Boundaries**</span>", unsafe_allow_html=True)
         if st.button("Preprocess geometry"):
             st.session_state["current_page"] = "Prediction"
             #create features from mesh
