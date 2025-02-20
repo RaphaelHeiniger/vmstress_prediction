@@ -93,14 +93,14 @@ def plot_b_l(mesh_geometry, mesh_topology):
     # Add the points with y < 0.001, make them bigger and blue
     plotter.add_points(filtered_points_y_small, color="blue", point_size=15, label='Boundary')
     
-    plotter.add_axes(
-        color="black",  # Color the axes themselves black
-        xlabel="X", ylabel="Y", zlabel="Z",  # Axis labels
-        x_color="red", y_color="green", z_color="blue",  # Color axes: X in red, Y in green, Z in blue
-        line_width=3  # Optional: increase the line width for visibility
-    )
+    legend = [
+    ['Top pressure', 'blue'],  # no custom glyph
+    ['Middle point pressure', 'green', 'circle'],  # Using a defaults glyph
+    {'label': 'Lower pressure', 'color': 'red', 'face': pv.Box()},
+    ]
 
-
+    # You can
+    pl.add_legend(legend)
 
     plotter.view_isometric()
     plotter.background_color = 'white'
