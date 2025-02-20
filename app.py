@@ -81,7 +81,7 @@ def preprocessing_section():
         #stpyvista(deck.plot(show_edges=True, off_screen=True), key="mesh_plot")
         mesh_geometry = st.session_state["mesh_geometry"]
         mesh_topology = st.session_state["mesh_topology"]
-        mesh_plotter = plot_mesh(mesh_geometry, mesh_topology)
+        mesh_plotter = plot_b_l(mesh_geometry, mesh_topology)
         #os_name = platform.system()
         #if os_name == 'Windows':
         #    mesh_plotter.show()
