@@ -117,35 +117,35 @@ def prediction_section():
         if st.session_state["model_confirmed"]:
             st.write(f"Processing data for {st.session_state['selected_model']}")
 
-            if st.session_state["selected_model"] == "Model A":
-                st.write("Prepare features:")
+        #    if st.session_state["selected_model"] == "Model A":
+            st.write("Prepare features:")
                 
-                mesh_geometry = st.session_state["mesh_geometry"]
-                mesh_topology = st.session_state["mesh_topology"]
-                print(mesh_geometry.shape)
+            mesh_geometry = st.session_state["mesh_geometry"]
+            mesh_topology = st.session_state["mesh_topology"]
+            print(mesh_geometry.shape)
                 
-                st.write(f".. apply boundary conditions")
-                constrain_boxes = [((0, 0), (250, 0.0001)),
-                                   ((249.999, 0), (250.0001, 500))]
-                st.session_state["boundary"] = apply_boundary_conditions(mesh_geometry, boxes=constrain_boxes)
+            st.write(f".. apply boundary conditions")
+            constrain_boxes = [((0, 0), (250, 0.0001)),
+                                ((249.999, 0), (250.0001, 500))]
+            st.session_state["boundary"] = apply_boundary_conditions(mesh_geometry, boxes=constrain_boxes)
 
-                if debug:
-                    st.dataframe(st.session_state["boundary"])
+            if debug:
+                st.dataframe(st.session_state["boundary"])
                 
-                st.write(f".. apply external loads")
-                load_boxes = [((0, 499.9999), (250, 500.0001), (100, 100)),
+            st.write(f".. apply external loads")
+            load_boxes = [((0, 499.9999), (250, 500.0001), (100, 100)),
                               ((0, 0), (1, 500.0001), (-30, 0))]
-                st.session_state["loads"] = apply_external_loads(mesh_geometry, boxes=load_boxes)
+            st.session_state["loads"] = apply_external_loads(mesh_geometry, boxes=load_boxes)
 
-                if debug:
-                    st.dataframe(st.session_state["loads"])
+            if debug:
+                st.dataframe(st.session_state["loads"])
 
-                st.write(f".. create connectivity and edge features")
-                st.session_state["edge_index"], st.session_state["edge_attr"] = create_edge_features(mesh_geometry, mesh_topology)
+            st.write(f".. create connectivity and edge features")
+            st.session_state["edge_index"], st.session_state["edge_attr"] = create_edge_features(mesh_geometry, mesh_topology)
 
-                if debug:
-                    st.write(f"... edge index: {st.session_state['edge_index'].shape}")
-                    st.write(f"... edge attributes: {st.session_state['edge_attr'].shape}")
+            if debug:
+                st.write(f"... edge index: {st.session_state['edge_index'].shape}")
+                st.write(f"... edge attributes: {st.session_state['edge_attr'].shape}")
 
             if st.button("Predict"):
                 st.session_state["prediction_status"] = "Preparing data for model..."
