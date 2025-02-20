@@ -40,7 +40,7 @@ def main():
     st.set_page_config(page_title="Stress prediction", layout="wide")
     
     # Sidebar navigation
-    st.sidebar.title("Navigation")
+    st.sidebar.title("Stress prediction")
     if "current_page" not in st.session_state:
         st.session_state["current_page"] = "Input"
     
