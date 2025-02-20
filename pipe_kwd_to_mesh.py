@@ -99,7 +99,6 @@ def plot_b_l(mesh_geometry, mesh_topology):
     {'label': 'Lower pressure', 'color': 'red', 'face': pv.Box()},
     ]
 
-    # You can
     plotter.add_legend(legend)
 
     plotter.view_isometric()
