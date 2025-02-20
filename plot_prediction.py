@@ -29,7 +29,7 @@ def plot_prediction(mesh_geometry, mesh_topology, prediction):
 
     plotter = pv.Plotter(off_screen=True, window_size=[600, 600])
     plotter.add_mesh(mesh, show_edges=True, scalars='von Mises stress (MPa)', cmap='jet')
-
+    plotter.add_scalar_bar()
     plotter.view_isometric()
     plotter.background_color = 'white'
     
