@@ -1,3 +1,4 @@
 procps
 libgl1-mesa-glx
+libxrender1
 xvfb
