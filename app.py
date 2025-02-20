@@ -90,7 +90,7 @@ def preprocessing_section():
         print(mesh_geometry.shape)
         preprocessed_data = [mesh_geometry, mesh_topology]
         st.session_state["preprocessed_data"] = preprocessed_data
-        st.markdown("**Legend:** <span style='color:red'>**Loads**</span> <span style='color:blue'>**Boundaries**</span>", unsafe_allow_html=True)
+        st.markdown("**Legend:** Loads <span style='color:red'>(red)</span>, Boundaries<span style='color:blue'>(blue)</span>", unsafe_allow_html=True)
         if st.button("Preprocess geometry"):
             st.session_state["current_page"] = "Prediction"
             #create features from mesh
