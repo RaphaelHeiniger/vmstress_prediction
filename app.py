@@ -59,6 +59,8 @@ def main():
         results_section()
         
     google_drive_link = "https://drive.google.com/file/d/1GyEkBkEMU3CfgnZEl-fOwkU_WLg1XoM9/view?usp=sharing"
+    for _ in range(20):  # Increase number if necessary
+        st.sidebar.markdown("") 
     placeholder = st.sidebar.empty()
     # Fill the placeholder with the clickable text (stays at the bottom)
     with placeholder.container():
