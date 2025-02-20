@@ -99,6 +99,8 @@ def plot_b_l(mesh_geometry, mesh_topology):
         x_color="red", y_color="green", z_color="blue",  # Color axes: X in red, Y in green, Z in blue
         line_width=3  # Optional: increase the line width for visibility
     )
+
+    legend = ['Load', 'Boundary']
     plotter.add_legend(legend)
 
     plotter.view_isometric()
