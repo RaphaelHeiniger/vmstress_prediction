@@ -59,7 +59,7 @@ def main():
         results_section()
 
 def input_section():
-    st.title("Input Section")
+    st.title("Input")
     uploaded_file = st.file_uploader("Select the LSDYNA input file:", type=["k", "key", "dyn"])
     if uploaded_file is not None:
         st.session_state["user_data"] = uploaded_file.read().decode("utf-8")
@@ -73,7 +73,7 @@ def input_section():
             st.rerun()
 
 def preprocessing_section():
-    st.title("Preprocessing Section")
+    st.title("Preprocessing")
     if "mesh_geometry" in st.session_state and "mesh_topology" in st.session_state:
 
         # Visualize geometry
@@ -99,7 +99,7 @@ def preprocessing_section():
         st.warning("Please upload a file in the Input section first.")
 
 def prediction_section():
-    st.title("Prediction Section")
+    st.title("Prediction")
 
     if "preprocessed_data" in st.session_state:
         # Model selection
@@ -156,7 +156,7 @@ def prediction_section():
         st.warning("Please preprocess the data first.")
 
 def results_section():
-    st.title("Results Section")
+    st.title("Results")
     
     if "prediction_step" in st.session_state:
         if st.session_state["prediction_step"] == 0:
