@@ -52,7 +52,8 @@ def create_edge_features(mesh_geometry, mesh_topology):
     elements = mesh_topology.copy()
     elements = elements.to_numpy()
 
-
+    elements -= 1
+    
     edge_list = set()  # Using a set to avoid duplicate edges
     edge_attr_list = []
 
