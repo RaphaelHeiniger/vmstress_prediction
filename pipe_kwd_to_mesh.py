@@ -100,7 +100,7 @@ def plot_b_l(mesh_geometry, mesh_topology):
     ]
 
     # You can
-    pl.add_legend(legend)
+    plotter.add_legend(legend)
 
     plotter.view_isometric()
     plotter.background_color = 'white'
