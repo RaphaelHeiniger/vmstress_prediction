@@ -11,7 +11,7 @@ import platform
 import os
 import time
 
-from pipe_kwd_to_mesh import process_kwd_to_mesh, plot_mesh
+from pipe_kwd_to_mesh import process_kwd_to_mesh, plot_mesh, plot_b_l
 from model_a.create_features import *
 from model_a.create_dataset import create_dataset
 from model_a.create_prediction import ini_model, get_prediction
