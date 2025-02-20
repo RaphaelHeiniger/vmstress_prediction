@@ -63,11 +63,11 @@ def main():
     st.sidebar.markdown(
         """
         <style>
-        .sidebar .sidebar-content {
+        .css-1d391kg { /* This class targets the sidebar container */
             display: flex;
             flex-direction: column;
             height: 100%;
-            justify-content: space-between;
+            justify-content: flex-end;
         }
         .sidebar-button {
             background-color: #d3d3d3; /* gray */
@@ -77,10 +77,16 @@ def main():
             border-radius: 5px;
             cursor: pointer;
             width: 100%;
+            margin-top: 20px; /* Optional spacing above the button */
         }
         </style>
-        <a href="{}" target="_blank"><button class="sidebar-button">Download Test Mesh</button></a>
-        """.format(google_drive_link),
+        """,
+        unsafe_allow_html=True
+    )
+
+    # Custom button with a link to the Google Drive file
+    st.sidebar.markdown(
+        f'<a href="{google_drive_link}" target="_blank"><button class="sidebar-button">Download Test Mesh</button></a>',
         unsafe_allow_html=True
     )
 def input_section():
