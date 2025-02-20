@@ -85,7 +85,7 @@ def plot_b_l(mesh_geometry, mesh_topology):
     plotter = pv.Plotter(off_screen=True, window_size=[600, 600])
     
     # Add the regular mesh with the default color and size
-    plotter.add_mesh(mesh, show_edges=True)
+    plotter.add_mesh(mesh, show_edges=True, point_size=10)
     
     # Add arrows to the filtered points with y > 499.999
     plotter.add_arrows(filtered_points_y_greater, directions, color="red", mag=1.3, label='Load')
