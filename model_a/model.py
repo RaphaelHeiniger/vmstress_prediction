@@ -3,7 +3,6 @@ import torch_scatter
 import torch.nn as nn
 from torch.nn import Linear, Sequential, LayerNorm, ReLU
 from torch_geometric.nn.conv import MessagePassing
-from torch_geometric.data import DataLoader
 
 
 class MeshGraphNet(torch.nn.Module):
@@ -164,7 +163,32 @@ class ProcessorLayer(MessagePassing):
         out = torch_scatter.scatter(updated_edges, edge_index[0, :], dim=node_dim, reduce = 'sum')
 
         return out, updated_edges
-    
+
+    def loss(self, pred, inputs, mean_vec_y, std_vec_y):
+
+        loss_mask_active = False
+        if loss_mask_active:
+            # Boundary fix or either x-force or y-force is greater than 0
+            boundary_mask = inputs.x[:, 2] == 1
+
+            force_mask = (inputs.x[:, 3] > 0) | (inputs.x[:, 4] > 0)  
+
+            loss_mask = torch.logical_or(boundary_mask, force_mask)
+
+        #Normalize labels with dataset statistics
+        labels = normalize(inputs.y, mean_vec_y, std_vec_y)
+
+        #Find sum of square errors
+        error=torch.sum((labels-pred)**2,axis=1)
+
+        #Root and mean the errors for the nodes we calculate loss for
+        if loss_mask_active:
+            loss=torch.sqrt(torch.mean(error[loss_mask]))
+        else:
+            loss=torch.sqrt(torch.mean(error))
+
+        return loss
+
 def normalize(to_normalize,mean_vec,std_vec):
     return (to_normalize-mean_vec)/std_vec
 

@@ -3,6 +3,7 @@ from datetime import datetime
 from pathlib import Path
 import pandas as pd
 import torch
+import numpy as np
 from torch_geometric.data import Data
 from torch_geometric.data import DataLoader
 
@@ -19,6 +20,8 @@ def create_dataset(mesh_geometry, mesh_topology, boundary, loads, edge_index, ed
     node_features = torch.tensor(df_node_features.values, dtype=torch.float32)
 
     df_elements = mesh_topology.copy()
+    df_elements = df_elements.astype(np.int64)
+
     elements = torch.tensor(df_elements.values, dtype=torch.long)
 
     nodal_coords= torch.tensor(df_node_coord.values, dtype=torch.float32)

@@ -81,12 +81,12 @@ def preprocessing_section():
         mesh_geometry = st.session_state["mesh_geometry"]
         mesh_topology = st.session_state["mesh_topology"]
         mesh_plotter = plot_mesh(mesh_geometry, mesh_topology)
-        os_name = platform.system()
-        if os_name == 'Windows':
-            mesh_plotter.show()
-        else:
-            stpyvista(mesh_plotter, key="mesh_plot")  
-
+        #os_name = platform.system()
+        #if os_name == 'Windows':
+        #    mesh_plotter.show()
+        #else:
+        stpyvista(mesh_plotter, key="mesh_plot")  
+        print(mesh_geometry.shape)
         preprocessed_data = [mesh_geometry, mesh_topology]
         st.session_state["preprocessed_data"] = preprocessed_data
 
@@ -112,7 +112,7 @@ def prediction_section():
 
             mesh_geometry = st.session_state["mesh_geometry"]
             mesh_topology = st.session_state["mesh_topology"]
-
+            print(mesh_geometry.shape)
             st.write(f".. apply boundary conditions")
             constrain_boxes = [((0, 0), (250, 0.0001)),
                 ((249.999, 0), (250.0001, 500))]
@@ -146,7 +146,7 @@ def results_section():
         if st.session_state["prediction_step"] == 0:
             st.write("Preparing data for model...")
 
-
+            print(st.session_state["mesh_geometry"].shape)
             loader = create_dataset(st.session_state["mesh_geometry"], 
                                     st.session_state["mesh_topology"],
                                     st.session_state["boundary"], 
@@ -155,6 +155,7 @@ def results_section():
                                     st.session_state["edge_attr"])
             model, args = ini_model()
             pred = get_prediction(loader, model, args)
+            print(pred)
             st.write(f"... edge attributes: {pred}")
             st.session_state["prediction_step"] = 1
             st.rerun()

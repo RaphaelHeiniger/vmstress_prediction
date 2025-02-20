@@ -1,5 +1,7 @@
 from pathlib import Path
 import torch
+import random
+import numpy as np
 from model_a.model import MeshGraphNet
 
 def ini_model():
@@ -39,15 +41,17 @@ def ini_model():
     np.random.seed(5)     #NumPy
 
     model_dir = Path("model_a/model_nl32_bs16_hd32_ep1000_wd0.0005_lr0.0001_shuff_True_tr540_te135.pt")
+    model_dir = Path("model_a/model_nl32_bs16_hd32_ep10000_wd0.0005_lr0.0001_shuff_True_tr525_te150.pt")
     PATH = model_dir
     num_node_features = 5
-    num_edge_features = 2
+    num_edge_features = 3
     num_classes = 1
     model = MeshGraphNet(num_node_features, num_edge_features, args.hidden_dim, num_classes,
                             args).to(args.device)
     return model, args
 
 def get_prediction(loader, best_model, args):
+    print(loader)
     best_model.eval()
     device = args.device
     stats_list = [torch.tensor([1.2513e+02, 2.4880e+02, 1.1460e-02, 0.0000e+00, 1.1173e+00]),
@@ -56,8 +60,13 @@ def get_prediction(loader, best_model, args):
                 torch.tensor([6.3235, 6.3771, 3.8468]),
                 torch.tensor([0.]),
                 torch.tensor([1.])]
-    data = loader[0].to(device)
-
+    
+    for data in loader:
+        data = data.to(device)
+        break
+    print("Node features (x) shape:", data.x.shape)
+    print("Edge indices shape:", data.edge_index.shape)
+    print("Edge attributes shape:", data.edge_attr.shape)
     [mean_vec_x, std_vec_x, mean_vec_edge, std_vec_edge, mean_vec_y, std_vec_y] = stats_list
     (mean_vec_x, std_vec_x, mean_vec_edge, std_vec_edge, mean_vec_y, std_vec_y) = (
         mean_vec_x.to(device), std_vec_x.to(device), 
@@ -67,5 +76,6 @@ def get_prediction(loader, best_model, args):
 
     with torch.no_grad():
         pred = best_model(data, mean_vec_x, std_vec_x, mean_vec_edge, std_vec_edge)
-
+    print("Prediction shape", pred.shape)
+    print("Prediction", pred)
     return pred
