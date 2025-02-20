@@ -41,13 +41,13 @@ def ini_model():
     np.random.seed(5)     #NumPy
 
     model_dir = Path("model_a/model_nl32_bs16_hd32_ep1000_wd0.0005_lr0.0001_shuff_True_tr540_te135.pt")
-    model_dir = Path("model_a/model_nl32_bs16_hd32_ep10000_wd0.0005_lr0.0001_shuff_True_tr525_te150.pt")
     PATH = model_dir
     num_node_features = 5
     num_edge_features = 3
     num_classes = 1
     model = MeshGraphNet(num_node_features, num_edge_features, args.hidden_dim, num_classes,
                             args).to(args.device)
+    model.load_state_dict(torch.load(PATH, map_location=args.device))
     return model, args
 
 def get_prediction(loader, best_model, args):
@@ -60,7 +60,7 @@ def get_prediction(loader, best_model, args):
                 torch.tensor([6.3235, 6.3771, 3.8468]),
                 torch.tensor([0.]),
                 torch.tensor([1.])]
-    
+    print(stats_list)
     for data in loader:
         data = data.to(device)
         break
