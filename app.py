@@ -66,7 +66,7 @@ def main():
         .clickable-text {
             position: fixed;  /* Fixed position relative to the window */
             bottom: 20px;     /* Position from the bottom */
-            right: 20px;      /* Position from the right */
+            left: 20px;      /* Position from the right */
             color: #555555;   /* Dark gray text */
             font-size: 16px;
             font-weight: bold;
