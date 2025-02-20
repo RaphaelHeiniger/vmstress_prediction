@@ -5,6 +5,7 @@ import pandas as pd
 import pyvista as pv
 import numpy as np
 import streamlit as st
+import platform
 #pv.start_xvfb()
 
 def process_kwd_to_mesh(keyword_file):
@@ -38,6 +39,7 @@ def plot_mesh(mesh_geometry, mesh_topology):
     # Create a PyVista mesh
     mesh = pv.PolyData(nodes)  # Create the mesh with node coordinates
     mesh.faces = faces  # Assign faces (connectivity)
+    
 
     plotter = pv.Plotter(off_screen=True, window_size=[600, 600])
     plotter.add_mesh(mesh, show_edges=True)

@@ -7,10 +7,12 @@ from ansys.dyna.core.keywords import keywords
 from pathlib import Path
 import pandas as pd
 from stpyvista import stpyvista
+import platform
+import os
 
 from pipe_kwd_to_mesh import process_kwd_to_mesh, plot_mesh
+from model_a.create_features import *
 
-import os
 
 # Set the environment variable for offscreen rendering in PyVista
 #os.environ["PYVISTA_OFF_SCREEN"] = "1"
@@ -18,13 +20,21 @@ import os
 #pv.start_xvfb()
 from stpyvista.utils import start_xvfb
 
-if "IS_XVFB_RUNNING" not in st.session_state:
-  start_xvfb()
-  st.session_state.IS_XVFB_RUNNING = True 
+#this is only required for the deployed version on streamlit cloud
 
+debug = True
+os_name = platform.system()
+
+if os_name == 'Windows':
+    pass
+else:
+    if "IS_XVFB_RUNNING" not in st.session_state:
+        start_xvfb()
+        st.session_state.IS_XVFB_RUNNING = True 
+    ##################################################################
 
 def main():
-    st.set_page_config(page_title="ML Pipeline App", layout="wide")
+    st.set_page_config(page_title="Stress prediction", layout="wide")
     
     # Sidebar navigation
     st.sidebar.title("Navigation")
@@ -62,24 +72,22 @@ def input_section():
 def preprocessing_section():
     st.title("Preprocessing Section")
     if "mesh_geometry" in st.session_state and "mesh_topology" in st.session_state:
+
+        # Visualize geometry
         deck = st.session_state["deck"]
         #stpyvista(deck.plot(show_edges=True, off_screen=True), key="mesh_plot")
         mesh_geometry = st.session_state["mesh_geometry"]
         mesh_topology = st.session_state["mesh_topology"]
         mesh_plotter = plot_mesh(mesh_geometry, mesh_topology)
-        stpyvista(mesh_plotter, key="mesh_plot")
-        
+        os_name = platform.system()
+        if os_name == 'Windows':
+            mesh_plotter.show()
+        else:
+            stpyvista(mesh_plotter, key="mesh_plot")  
+
         preprocessed_data = [mesh_geometry, mesh_topology]
         st.session_state["preprocessed_data"] = preprocessed_data
-        #st.write("Preprocessed Data:", preprocessed_data)
-        
-        # Display PyVista visualization
-        #plot ls-dyna inputdeck
-        #plotter = pv.Plotter()
-        #mesh = pv.Sphere()
-        #plotter.add_mesh(mesh)
-        #stpv.pyplot(plotter.show())
-        
+
         if st.button("Preprocess geometry"):
             st.session_state["current_page"] = "Prediction"
             #create features from mesh
@@ -94,6 +102,34 @@ def prediction_section():
         model_choice = st.radio("Select a prediction model:", ("Model A", "Model B"))
         st.session_state["selected_model"] = model_choice
         
+        if model_choice == 'Model A':
+            st.write(f"Processing data for {model_choice}")
+            #MODEL A
+            ############################################
+            st.write("Prepare features:")
+
+            mesh_geometry = st.session_state["mesh_geometry"]
+            mesh_topology = st.session_state["mesh_topology"]
+
+            st.write(f".. apply boundary conditions")
+            constrain_boxes = [((0, 0), (250, 0.0001)),
+                ((249.999, 0), (250.0001, 500))]
+            st.session_state["boundary"] = apply_boundary_conditions(mesh_geometry, boxes=constrain_boxes)
+            if debug:
+                st.dataframe(st.session_state["boundary"])
+            st.write(f".. apply external loads")
+            load_boxes = [((0, 499.9999), (250, 500.0001), (100, 100)),
+                ((0, 0), (1, 500.0001), (-30, 0))]
+            st.session_state["loads"] = apply_external_loads(mesh_geometry, boxes=load_boxes)
+            if debug:
+                st.dataframe(st.session_state["loads"])
+
+            st.write(f".. create connectivity and edge features")
+            st.session_state["edge_index"], st.session_state["edge_attr"] = create_edge_features(mesh_geometry, mesh_topology)
+            if debug:
+                st.write(f"... edge index: {st.session_state["edge_index"].shape}")
+                st.write(f"... edge attributes: {st.session_state["edge_attr"].shape}")
+
         if st.button("Predict"):
             st.session_state["prediction_status"] = "Preparing data for model..."
             st.session_state["prediction_step"] = 0
