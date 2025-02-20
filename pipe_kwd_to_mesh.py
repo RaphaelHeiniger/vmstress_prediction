@@ -100,8 +100,7 @@ def plot_b_l(mesh_geometry, mesh_topology):
         line_width=3  # Optional: increase the line width for visibility
     )
 
-    legend = ['Load', 'Boundary']
-    plotter.add_legend(legend)
+
 
     plotter.view_isometric()
     plotter.background_color = 'white'
