@@ -57,7 +57,13 @@ def main():
         prediction_section()
     elif option == "Results":
         results_section()
-
+        
+    google_drive_link = "https://drive.google.com/file/d/1GyEkBkEMU3CfgnZEl-fOwkU_WLg1XoM9/view?usp=sharing"
+    
+    st.sidebar.markdown(
+        f'<a href="{google_drive_link}" target="_blank"><button style="background-color:#4CAF50;color:white;padding:10px 20px;border:none;border-radius:5px;cursor:pointer;width:100%;">Download Test Mesh</button></a>',
+        unsafe_allow_html=True
+    )
 def input_section():
     st.title("Input")
     uploaded_file = st.file_uploader("Select the LSDYNA input file:", type=["k", "key", "dyn"])
