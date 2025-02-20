@@ -95,7 +95,6 @@ def plot_b_l(mesh_geometry, mesh_topology):
     
     plotter.add_legend(
         labels={"Load": "red", "Boundary": "blue"},  # The labels and their associated colors
-        position="upper_left",  # Position of the legend
         size=(0.2, 0.2),  # Size of the legend box
         font_size=12,  # Font size
         color="black"  # Color of the legend text
