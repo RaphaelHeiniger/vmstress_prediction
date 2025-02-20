@@ -105,13 +105,14 @@ def prediction_section():
         # Model selection
         model_choice = st.radio("Select a prediction model:", ("Model A", "Model B"))
         st.session_state["selected_model"] = model_choice
-
+            
         # Require user confirmation before proceeding
         if "model_confirmed" not in st.session_state:
             st.session_state["model_confirmed"] = False
 
         if st.button("Confirm Model"):
             st.session_state["model_confirmed"] = True
+            st.session_state["selected_model"] == "Model A":
             st.rerun()
 
         if st.session_state["model_confirmed"]:
