@@ -11,4 +11,3 @@ torch
 torchvision
 torchaudio
 torch-geometric
-torch-sparse
