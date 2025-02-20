@@ -1,5 +1,6 @@
 import torch
-import torch_scatter
+#import torch_scatter
+from scatter import scatter
 import torch.nn as nn
 from torch.nn import Linear, Sequential, LayerNorm, ReLU
 from torch_geometric.nn.conv import MessagePassing
@@ -160,7 +161,7 @@ class ProcessorLayer(MessagePassing):
         # The axis along which to index number of nodes.
         node_dim = 0
 
-        out = torch_scatter.scatter(updated_edges, edge_index[0, :], dim=node_dim, reduce = 'sum')
+        out = scatter(updated_edges, edge_index[0, :], dim=node_dim, reduce = 'sum')
 
         return out, updated_edges
 
