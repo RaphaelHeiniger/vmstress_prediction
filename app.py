@@ -63,23 +63,22 @@ def main():
     st.markdown(
         """
         <style>
-        .css-1d391kg { /* This targets the sidebar container */
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            justify-content: flex-start;
+        /* Style for the sidebar */
+        .css-1d391kg {
+            position: relative; /* Make sidebar a reference point for absolute positioning */
+            height: 100vh;      /* Ensure sidebar takes up the full height of the window */
         }
-        .sidebar-content {
-            flex-grow: 1; /* Ensures the content above the clickable text takes up the remaining space */
-        }
+
+        /* Style for the clickable text */
         .clickable-text {
-            margin-top: auto;  /* Pushes the text to the bottom */
+            position: absolute;
+            bottom: 20px;      /* Position 20px from the bottom of the sidebar */
+            left: 20px;        /* Position 20px from the left of the sidebar */
             color: #555555;    /* Dark gray text */
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            padding: 10px;
-            text-align: left;   /* Aligns the text to the left */
+            z-index: 1000;     /* Ensures it stays on top */
         }
         </style>
         """,
