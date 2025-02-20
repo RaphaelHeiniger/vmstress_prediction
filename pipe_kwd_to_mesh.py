@@ -4,7 +4,7 @@ from pathlib import Path
 import pandas as pd
 import pyvista as pv
 import numpy as np
-
+import streamlit as st
 #pv.start_xvfb()
 
 def process_kwd_to_mesh(keyword_file):
@@ -39,7 +39,11 @@ def plot_mesh(mesh_geometry, mesh_topology):
     mesh = pv.PolyData(nodes)  # Create the mesh with node coordinates
     mesh.faces = faces  # Assign faces (connectivity)
 
-    print("Available scalars:", mesh.point_data.keys()) 
+
+    st.write("Mesh Geometry:", mesh_geometry)
+    st.write("Mesh Topology:", mesh_topology)
+    st.write("Available Scalars:", mesh.point_data.keys())
+
 
     # Plot
     #pv.start_xvfb()
