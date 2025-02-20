@@ -193,7 +193,7 @@ def results_section():
                 st.warning("Mesh geometry or topology is missing. Please go back to the Input or Preprocessing section.")
 
         elif st.session_state["prediction_step"] == 1:
-            st.session_state["prediction_status"] = f"Prediction Finished! Took {st.session_state["prediction_time"]} ms. {st.session_state["prediction_time"]/1000}x speed up compared to FEM solver"
+            st.session_state["prediction_status"] = f"Prediction Finished! Took {st.session_state["prediction_time"]} ms. {1000/st.session_state["prediction_time"]}x speed up compared to FEM solver"
             st.session_state["prediction_step"] = 2
             st.rerun()
 
