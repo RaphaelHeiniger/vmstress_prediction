@@ -71,7 +71,7 @@ def preprocessing_section():
         
         preprocessed_data = [mesh_geometry, mesh_topology]
         st.session_state["preprocessed_data"] = preprocessed_data
-        st.write("Preprocessed Data:", preprocessed_data)
+        #st.write("Preprocessed Data:", preprocessed_data)
         
         # Display PyVista visualization
         #plot ls-dyna inputdeck
