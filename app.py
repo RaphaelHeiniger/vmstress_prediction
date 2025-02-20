@@ -112,7 +112,7 @@ def prediction_section():
 
         if st.button("Confirm Model"):
             st.session_state["model_confirmed"] = True
-            st.session_state["selected_model"] == "Model A":
+            st.session_state["selected_model"] == "Model A"
             st.rerun()
 
         if st.session_state["model_confirmed"]:
