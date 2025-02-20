@@ -94,10 +94,9 @@ def plot_b_l(mesh_geometry, mesh_topology):
     plotter.add_points(filtered_points_y_small, color="blue", point_size=15, label='Boundary')
     
     plotter.add_axes(
-        origin=(0, 0, 0),  # Position the axes at the origin (0, 0, 0)
         color="black",  # Color the axes themselves black
         xlabel="X", ylabel="Y", zlabel="Z",  # Axis labels
-        axes_kwargs={"x": "red", "y": "green", "z": "blue"},  # Color axes: X in red, Y in green, Z in blue
+        x_color="red", y_color="green", z_color="blue",  # Color axes: X in red, Y in green, Z in blue
         line_width=3  # Optional: increase the line width for visibility
     )
     pl.add_legend(legend)
