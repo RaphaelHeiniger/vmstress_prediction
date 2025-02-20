@@ -6,6 +6,7 @@ from ansys.dyna.core.lib.deck import Deck
 from ansys.dyna.core.keywords import keywords
 from pathlib import Path
 import pandas as pd
+from stpyvista import stpyvista
 
 from pipe_kwd_to_mesh import process_kwd_to_mesh, plot_mesh
 
@@ -60,7 +61,7 @@ def preprocessing_section():
         mesh_geometry = st.session_state["mesh_geometry"]
         mesh_topology = st.session_state["mesh_topology"]
         mesh_plotter = plot_mesh(mesh_geometry, mesh_topology)
-        st.pyvista(mesh_plotter, key="mesh_plot")
+        stpyvista(mesh_plotter, key="mesh_plot")
         preprocessed_data = [mesh_geometry, mesh_topology]
         st.session_state["preprocessed_data"] = preprocessed_data
         st.write("Preprocessed Data:", preprocessed_data)
