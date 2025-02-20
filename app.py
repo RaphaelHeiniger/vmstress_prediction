@@ -150,11 +150,11 @@ def prediction_section():
                 st.write(f"... edge index: {st.session_state['edge_index'].shape}")
                 st.write(f"... edge attributes: {st.session_state['edge_attr'].shape}")
 
-            if st.button("Predict"):
-                st.session_state["prediction_status"] = "Preparing data for model..."
-                st.session_state["prediction_step"] = 0
-                st.session_state["current_page"] = "Results"
-                st.rerun()
+        if st.button("Predict"):
+            st.session_state["prediction_status"] = "Preparing data for model..."
+            st.session_state["prediction_step"] = 0
+            st.session_state["current_page"] = "Results"
+            st.rerun()
     else:
         st.warning("Please preprocess the data first.")
 
