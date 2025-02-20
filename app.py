@@ -12,6 +12,8 @@ import os
 
 from pipe_kwd_to_mesh import process_kwd_to_mesh, plot_mesh
 from model_a.create_features import *
+from model_a.create_dataset import create_dataset
+from model_a.create_prediction import ini_model, get_prediction
 
 
 # Set the environment variable for offscreen rendering in PyVista
@@ -143,7 +145,17 @@ def results_section():
     if "prediction_step" in st.session_state:
         if st.session_state["prediction_step"] == 0:
             st.write("Preparing data for model...")
-            time.sleep(2)
+
+
+            loader = create_dataset(st.session_state["mesh_geometry"], 
+                                    st.session_state["mesh_topology"],
+                                    st.session_state["boundary"], 
+                                    st.session_state["loads"], 
+                                    st.session_state["edge_index"], 
+                                    st.session_state["edge_attr"])
+            model, args = ini_model()
+            pred = get_prediction(loader, model, args)
+            st.write(f"... edge attributes: {pred}")
             st.session_state["prediction_step"] = 1
             st.rerun()
         elif st.session_state["prediction_step"] == 1:
@@ -155,9 +167,9 @@ def results_section():
             st.rerun()
         elif st.session_state["prediction_step"] == 2:
             st.success(st.session_state["prediction_status"])
-            fig, ax = plt.subplots()
-            ax.imshow(st.session_state["prediction_result"], cmap="viridis")
-            st.pyplot(fig)
+            #fig, ax = plt.subplots()
+            #ax.imshow(st.session_state["prediction_result"], cmap="viridis")
+            #st.pyplot(fig)
     else:
         st.warning("No prediction initiated yet.")
 

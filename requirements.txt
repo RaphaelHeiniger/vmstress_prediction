@@ -4,5 +4,6 @@ numpy
 pandas
 torch
 torch-geometric
+torch-scatter
 streamlit
 stpyvista
