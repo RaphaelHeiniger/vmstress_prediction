@@ -14,6 +14,8 @@ import os
 
 # Set the environment variable for offscreen rendering in PyVista
 os.environ["PYVISTA_OFF_SCREEN"] = "1"
+os.environ['DISPLAY'] = ':0'
+pv.start_xvfb()
 
 def main():
     st.set_page_config(page_title="ML Pipeline App", layout="wide")
