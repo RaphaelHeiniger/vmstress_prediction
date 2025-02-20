@@ -39,16 +39,8 @@ def plot_mesh(mesh_geometry, mesh_topology):
     mesh = pv.PolyData(nodes)  # Create the mesh with node coordinates
     mesh.faces = faces  # Assign faces (connectivity)
 
-
-    st.write("Mesh Geometry:", mesh_geometry)
-    st.write("Mesh Topology:", mesh_topology)
-    st.write("Available Scalars:", mesh.point_data.keys())
-
-
-    # Plot
-    #pv.start_xvfb()
     plotter = pv.Plotter(off_screen=True)
-    plotter.add_mesh(mesh)
+    plotter.add_mesh(mesh, show_edges=True)
     plotter.view_isometric()
     plotter.background_color = 'white'
     
