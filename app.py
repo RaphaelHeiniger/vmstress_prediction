@@ -59,17 +59,7 @@ def main():
         results_section()
         
     google_drive_link = "https://drive.google.com/file/d/1GyEkBkEMU3CfgnZEl-fOwkU_WLg1XoM9/view?usp=sharing"
-    for _ in range(20):  # Increase number if necessary
-        st.sidebar.markdown("") 
-    placeholder = st.sidebar.empty()
-    # Fill the placeholder with the clickable text (stays at the bottom)
-    with placeholder.container():
-        st.markdown(
-            f'<p style="color: #555555; font-size: 16px; font-weight: bold; text-align: left;">'
-            f'<a href="{google_drive_link}" target="_blank" style="color: inherit; text-decoration: none;">'
-            f'Download Test Mesh</a></p>',
-            unsafe_allow_html=True
-        )
+
 def input_section():
     st.title("Input")
     uploaded_file = st.file_uploader("Select the LSDYNA input file:", type=["k", "key", "dyn"])
@@ -83,7 +73,9 @@ def input_section():
             st.session_state["mesh_geometry"] = mesh_geometry
             st.session_state["mesh_topology"] = mesh_topology
             st.rerun()
-
+    st.markdown('<a href="https://drive.google.com/uc?id=your_file_id&export=download" target="_blank" style="color: #555555; text-decoration: none; font-weight: bold;">Download Test Mesh</a>',
+    unsafe_allow_html=True
+    )
 def preprocessing_section():
     st.title("Preprocessing")
     if "mesh_geometry" in st.session_state and "mesh_topology" in st.session_state:
