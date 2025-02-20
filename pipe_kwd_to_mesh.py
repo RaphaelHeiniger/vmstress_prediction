@@ -94,10 +94,7 @@ def plot_b_l(mesh_geometry, mesh_topology):
     plotter.add_points(filtered_points_y_small, color="blue", point_size=15)
     
     plotter.add_legend(
-        labels={"Load": "red", "Boundary": "blue"},  # The labels and their associated colors
-        size=(0.2, 0.2),  # Size of the legend box
-        font_size=12,  # Font size
-        color="black"  # Color of the legend text
+        labels={"Load": "red", "Boundary": "blue"}
     )
     # Set the view and background
     plotter.view_isometric()
