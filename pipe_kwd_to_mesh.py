@@ -26,9 +26,9 @@ def plot_mesh(mesh_geometry, mesh_topology):
     nodes_3d = mesh_geometry.copy()
     nodes_3d['z'] = 0  # Flat plane mesh
     nodes = nodes_3d[['x', 'y', 'z']].values  # Get coordinates as an array
-    
+    mesh_topology_copy = mesh_topology.copy()
     # The connectivity (elements) with 1-based indexing
-    elements = mesh_topology[['n1', 'n2', 'n3']].values - 1  # Convert to 0-based indexing for PyVista
+    elements = mesh_topology_copy[['n1', 'n2', 'n3']].values - 1  # Convert to 0-based indexing for PyVista
     
     # Prepare the element connectivity for PyVista: [3, n1, n2, n3, 3, n4, n5, n6, ...]
     faces = []
