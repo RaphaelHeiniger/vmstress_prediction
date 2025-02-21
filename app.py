@@ -169,7 +169,7 @@ def results_section():
             if "mesh_geometry" in st.session_state and "mesh_topology" in st.session_state:
                 mesh_geometry = st.session_state["mesh_geometry"]
                 mesh_topology = st.session_state["mesh_topology"]
-
+                start_time = time.time()
                 print(mesh_geometry.shape)
                 loader = create_dataset(mesh_geometry, 
                                         mesh_topology,
@@ -177,7 +177,6 @@ def results_section():
                                         st.session_state["loads"], 
                                         st.session_state["edge_index"], 
                                         st.session_state["edge_attr"])
-                start_time = time.time()
                 st.write("Running prediction...")
                 model, args = ini_model()
                 pred = get_prediction(loader, model, args)
@@ -196,7 +195,8 @@ def results_section():
                 st.warning("Mesh geometry or topology is missing. Please go back to the Input or Preprocessing section.")
 
         elif st.session_state["prediction_step"] == 1:
-            st.session_state["prediction_status"] = f"Prediction Finished! Took {st.session_state["prediction_time"]} ms. {round(1000/st.session_state["prediction_time"], 2)}x speed up compared to FEM solver."
+            # 9489ms is average execution time of LS-DYNA on 2 cpus (more cpus do not scale on this model)
+            st.session_state["prediction_status"] = f"Prediction Finished! Took {st.session_state["prediction_time"]} ms. {round(9489/st.session_state["prediction_time"], 2)}x speed up compared to FEM solver."
             st.session_state["prediction_step"] = 2
             st.rerun()
 
