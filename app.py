@@ -196,7 +196,8 @@ def results_section():
 
         elif st.session_state["prediction_step"] == 1:
             # 9489ms is average execution time of LS-DYNA on 2 cpus (more cpus do not scale on this model)
-            st.session_state["prediction_status"] = f"Prediction Finished! Took {st.session_state["prediction_time"]} ms. {round(9489/st.session_state["prediction_time"], 2)}x speed up compared to FEM solver."
+            # this also includes mpi startup etc.. reported solving time is 1s. 
+            st.session_state["prediction_status"] = f"Prediction Finished! Took {st.session_state["prediction_time"]} ms. {round(1000/st.session_state["prediction_time"], 2)}x speed up compared to FEM solver."
             st.session_state["prediction_step"] = 2
             st.rerun()
 
